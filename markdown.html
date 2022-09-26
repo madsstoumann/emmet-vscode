@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Generate Markdown</title>
+</head>
+<body>
+	<h1>Open the <code>console</code></h1>
+	<script>
+
+
+const data = {};
+const urls = ['properties.json', 'emmet.json'];
+
+Promise.all(
+	urls.map((url, index) => fetch(url)
+		.then(r => r.json())
+		.then(json => {
+			const key = urls[index].split('.')[0];
+			data[key] = json;
+		})
+		.catch(error => ({ error, url }))
+	)
+).then(() => {
+	const emmetMap = new Map();
+
+	for (const [key, value] of Object.entries(data.emmet)) {
+		const [subkey, subvalue] = value.split(':')
+		if (data.properties.hasOwnProperty(subkey)) {
+			if (!emmetMap.has(subkey)) emmetMap.set(subkey, key);
+		}
+		else {
+			delete data.emmet[key];
+		}
+	}
+
+	const values = Array.from(emmetMap.values());
+	let emmetKey;
+	let str = '| Emmet | Property |\n';
+
+	for (const [key, value] of Object.entries(data.properties)) {
+		if (!emmetMap.has(key)) {
+			const arrKey = key.split('-');
+			emmetKey = arrKey.length > 1 ? arrKey.map(str => str.charAt(0)).join('') : key.slice(0, 3);
+
+			if (values.includes(emmetKey)) {
+				console.error(emmetKey, key)
+				/* FIX MANUALLY */
+			}
+
+			data.emmet[emmetKey] = key;
+		}
+		else {
+			emmetKey = emmetMap.get(key);
+		}
+
+		data.properties[key].emmet = emmetKey;
+	}
+
+
+	for (const [key, value] of Object.entries(data.properties)) {
+		str+= `| ${value.emmet} | ${key} |\n`
+	}
+	console.log("%Markdown", "background:#000;color:#90EE90;padding:.25em .75em");
+	console.log(str);
+});
+
+
+
+	</script>
+</body>
+</html>
