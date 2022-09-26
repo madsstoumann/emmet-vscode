@@ -10,11 +10,11 @@ https://dev.to/madsstoumann/extending-emmet-and-vs-code-and-a-bit-on-json--2f89
 
 Links:
 
-https://docs.emmet.io/abbreviations/types/
-https://github.com/sergeche/emmet-sublime/blob/master/emmet/snippets.json
-https://github.com/emmetio/emmet/blob/master/snippets/css.json
-https://github.com/mdn/data/tree/main/css/properties.json
-https://www.smashingmagazine.com/2021/06/custom-emmet-snippets-vscode/
+- https://docs.emmet.io/abbreviations/types/
+- https://github.com/sergeche/emmet-sublime/blob/master/emmet/snippets.json
+- https://github.com/emmetio/emmet/blob/master/snippets/css.json
+- https://github.com/mdn/data/tree/main/css/properties.json
+- https://www.smashingmagazine.com/2021/06/custom-emmet-snippets-vscode/
 
 ---
 
